@@ -2,11 +2,10 @@
 - [Descripción](#descripción)
 - [Criterios de aceptación](#criterios)
   - [Preparar el entorno](#entorno)
-  - [Funcionalidad 2](#funcionalidad-2)
 - [Almacenamiento de datos](#almacenamiento-de-datos)
 - [Referencias](#referencias)
 
-# Utilidad
+# Descripción
 
 En esta primer semana se buscará definir las tareas y estructuras sobre las que se trabajará el proyecto. 
 
@@ -26,6 +25,7 @@ git clone https://github.com/Santicue14/IS2-2025-grupo2 (Shift + Insert para peg
 ```
 
 Veremos que estamos trabajando sobre la rama **master**
+
 ![Captura del git bash](./attachments/posicionamiento-master.png)
 
 Sobre esta ruta **NO** debemos trabajar, ya que se utiliza solamente para desplegar la versiones del proyecto que compilen y sean entregables finales.
