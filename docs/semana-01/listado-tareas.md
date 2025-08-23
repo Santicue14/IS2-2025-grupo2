@@ -73,3 +73,5 @@ Esto automáticamente va a crear una nueva rama dentro de GitHub, y lo que vamos
 
 ¿Cómo hacemos esto? 
 Bueno en GitHub tenemos el sector pull requests, donde se solicitan las combinaciones de ramas y después, el líder del equipo las tendrá que aprobar o mismo revisar con los compañeros para verificar que todo esté correcto. Una vez lo corrijamos entre todos, recién ahí se mergean a la rama premaster para luego pasar a la rama master.
+
+
