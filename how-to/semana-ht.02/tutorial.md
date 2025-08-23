@@ -167,8 +167,8 @@ git push -u origin main
 
 ##  Entregables de la semana
 
-* [ ] Repositorio en GitHub con estructura básica
-* [ ] README inicial completo
+* [X] Repositorio en GitHub con estructura básica
+* [X] README inicial completo
 * [ ] Pull request hecho desde rama personalizada
 * [ ] Casos de uso redactados (en Markdown)
 * [ ] Diagramas subidos en `/docs/semana-1/`
