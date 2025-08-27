@@ -1,0 +1,5 @@
+alembic
+python-dotenv
+fastapi
+sqlalchemy
+uvicorn
