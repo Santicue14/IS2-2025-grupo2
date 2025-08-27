@@ -1,0 +1,35 @@
+# Entornos virtuales
+venv/
+.env
+*.pyc
+__pycache__/
+*.pyo
+*.pyd
+
+# Archivos de configuración locales
+*.sqlite3
+*.db
+*.log
+
+# IDEs y editores
+.vscode/
+.idea/
+*.swp
+
+# Archivos del sistema operativo
+.DS_Store
+Thumbs.db
+
+# Archivos de dependencias de Python
+*.egg-info/
+*.egg
+*.dist-info/
+pip-wheel-metadata/
+
+# Docker y builds
+*.pid
+*.seed
+*.cover
+*.coverage
+htmlcov/
+*.py,cover
