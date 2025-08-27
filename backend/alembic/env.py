@@ -1,39 +1,42 @@
-import sys
 from logging.config import fileConfig
 
-from sqlalchemy import engine_from_config, pool
+from sqlalchemy import engine_from_config
+from sqlalchemy import pool
+
 from alembic import context
 
-# Esto es para que Alembic pueda encontrar los módulos de tu proyecto
-sys.path = ['', '..'] + sys.path
-
-# alembic/env.py
-
-# ... (código existente)
-from backend.app.db.base import Base
-
-# Asegúrate de importar todos tus modelos para que Alembic los reconozca.
-# La siguiente línea importa todos los archivos dentro de la carpeta models.
-from backend.app.db.models.deposito import DepositoORM
-from backend.app.db.models.movimiento import MovimientoORM
-from backend.app.db.models.producto import ProductoORM
-from backend.app.db.models.rol import RolORM
-from backend.app.db.models.usuario import UsuarioORM
-
-# Agrega aquí los demás modelos...
-# Agrega aquí los demás modelos...
-# ... (resto del código)
-from backend.app.db.engine import engine
-
-# 2. Configura los metadatos
-target_metadata = Base.metadata
-
-# Esto es el Alembic Config object, el cual provee acceso a los valores dentro del archivo .ini
+# this is the Alembic Config object, which provides
+# access to the values within the .ini file in use.
 config = context.config
 
-# Interpreta el archivo de configuración para logging
+# Interpret the config file for Python logging.
+# This line sets up loggers basically.
 if config.config_file_name is not None:
     fileConfig(config.config_file_name)
+
+# add your model's MetaData object here
+# for 'autogenerate' support
+# from myapp import mymodel
+# target_metadata = mymodel.Base.metadata
+
+# Importamos los modelos de la Base de Datos
+
+from app.db.base import Base
+
+from app.db.models.producto import ProductoORM
+from app.db.models.deposito import DepositoORM
+from app.db.models.movimiento import MovimientoORM
+from app.db.models.rol import RolORM
+from app.db.models.usuario import UsuarioORM
+
+
+target_metadata = Base.metadata
+
+# other values from the config, defined by the needs of env.py,
+# can be acquired:
+# my_important_option = config.get_main_option("my_important_option")
+# ... etc.
+
 
 def run_migrations_offline() -> None:
     """Run migrations in 'offline' mode.
@@ -58,6 +61,7 @@ def run_migrations_offline() -> None:
     with context.begin_transaction():
         context.run_migrations()
 
+
 def run_migrations_online() -> None:
     """Run migrations in 'online' mode.
 
@@ -65,7 +69,11 @@ def run_migrations_online() -> None:
     and associate a connection with the context.
 
     """
-    connectable = engine  # 3. Usa el motor de tu proyecto directamente
+    connectable = engine_from_config(
+        config.get_section(config.config_ini_section, {}),
+        prefix="sqlalchemy.",
+        poolclass=pool.NullPool,
+    )
 
     with connectable.connect() as connection:
         context.configure(
@@ -74,6 +82,7 @@ def run_migrations_online() -> None:
 
         with context.begin_transaction():
             context.run_migrations()
+
 
 if context.is_offline_mode():
     run_migrations_offline()

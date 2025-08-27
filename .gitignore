@@ -33,3 +33,5 @@ pip-wheel-metadata/
 *.coverage
 htmlcov/
 *.py,cover
+backend/app/.env
+.env
