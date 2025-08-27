@@ -45,7 +45,3 @@ ENV/
 
 # Logs
 *.log
-
-# Alembic
-alembic/versions/*.py
-!alembic/versions/__init__.py
