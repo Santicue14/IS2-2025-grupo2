@@ -7,10 +7,10 @@ class ProductoORM(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     nombre = Column(String, nullable=False)
-    descripcion = Column(String, nullable=False)
-    sku = Column(String, unique=True, nullable=True)
+    sku = Column(String, unique=True, nullable=False)
     stock=Column(Integer)
     stock_minimo=Column(Integer)
+    descripcion = Column(String, nullable=False)
 
 
     # Relación con movimientos

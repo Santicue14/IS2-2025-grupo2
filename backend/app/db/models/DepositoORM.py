@@ -8,5 +8,7 @@ class DepositoORM(Base):
     id = Column(Integer, primary_key=True, index=True)
     nombre = Column(String, unique=True, nullable=False)
     ubicacion = Column(String, unique=True, nullable=False)
-    # Relación con movimientos
-    movimientos = relationship("MovimientoORM", back_populates="deposito")
+    
+    # Relaciones con movimientos 
+    movimientos_origen = relationship("MovimientoORM", foreign_keys="[MovimientoORM.deposito_origen_id]", back_populates="deposito_origen")
+    movimientos_destino = relationship("MovimientoORM", foreign_keys="[MovimientoORM.deposito_destino_id]", back_populates="deposito_destino")

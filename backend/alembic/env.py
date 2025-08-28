@@ -23,11 +23,11 @@ if config.config_file_name is not None:
 
 from app.db.base import Base
 
-from app.db.models.producto import ProductoORM
-from app.db.models.deposito import DepositoORM
-from app.db.models.movimiento import MovimientoORM
-from app.db.models.rol import RolORM
-from app.db.models.usuario import UsuarioORM
+from app.db.models.ProductoORM import ProductoORM
+from app.db.models.DepositoORM import DepositoORM
+from app.db.models.MovimientoORM import MovimientoORM
+from app.db.models.RolORM import RolORM
+from app.db.models.UsuarioORM import UsuarioORM
 
 
 target_metadata = Base.metadata
