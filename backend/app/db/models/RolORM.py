@@ -5,7 +5,7 @@ from app.db.base import Base
 class RolORM(Base):
     __tablename__ = "rol"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     nombre = Column(String, unique=True, nullable=False)
 
     # Relación con usuarios

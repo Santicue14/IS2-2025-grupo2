@@ -5,7 +5,7 @@ from app.db.base import Base
 class DepositoORM(Base):
     __tablename__ = "deposito"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     nombre = Column(String, unique=True, nullable=False)
     ubicacion = Column(String, unique=True, nullable=False)
     
