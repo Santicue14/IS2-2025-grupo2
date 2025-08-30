@@ -5,7 +5,7 @@ from app.db.base import Base
 class MovimientoORM(Base):
     __tablename__ = "movimiento"
 
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     producto_id = Column(Integer, ForeignKey("producto.id"), nullable=False)
     deposito_origen_id = Column(Integer, ForeignKey("deposito.id"), nullable=False)
     deposito_destino_id = Column(Integer, ForeignKey("deposito.id"), nullable=False)

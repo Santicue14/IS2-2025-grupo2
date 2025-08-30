@@ -17,20 +17,8 @@ if config.config_file_name is not None:
 # add your model's MetaData object here
 # for 'autogenerate' support
 # from myapp import mymodel
-# target_metadata = mymodel.Base.metadata
-
-# Importamos los modelos de la Base de Datos
-
 from app.db.base import Base
-
-from app.db.models.ProductoORM import ProductoORM
-from app.db.models.DepositoORM import DepositoORM
-from app.db.models.MovimientoORM import MovimientoORM
-from app.db.models.RolORM import RolORM
-from app.db.models.UsuarioORM import UsuarioORM
-
-
-target_metadata = Base.metadata
+from app.db.models import DepositoORM, ProductoORM, MovimientoORM, RolORM, UsuarioORM, UsuarioRolORM
 
 # other values from the config, defined by the needs of env.py,
 # can be acquired:
@@ -53,7 +41,7 @@ def run_migrations_offline() -> None:
     url = config.get_main_option("sqlalchemy.url")
     context.configure(
         url=url,
-        target_metadata=target_metadata,
+        target_metadata=Base.metadata,
         literal_binds=True,
         dialect_opts={"paramstyle": "named"},
     )
@@ -77,7 +65,7 @@ def run_migrations_online() -> None:
 
     with connectable.connect() as connection:
         context.configure(
-            connection=connection, target_metadata=target_metadata
+            connection=connection, target_metadata=Base.metadata
         )
 
         with context.begin_transaction():
