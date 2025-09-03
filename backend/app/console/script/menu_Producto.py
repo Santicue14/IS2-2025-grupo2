@@ -30,6 +30,7 @@ def ver_productos():
 
 def listar_movimientos():
     print(TipoMovimiento.SALIDA.value)
+    
 def menu_producto():
     while True:
         print("1. Insertar producto")
