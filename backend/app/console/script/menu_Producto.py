@@ -99,13 +99,7 @@ def menu_producto():
         opcion = input("Ingrese una opción: ")
         match opcion:
             case "1":
-                resultado = insertar_producto()
-                if resultado and resultado.get("success"):
-                    print(f"✅ {resultado['message']}")
-                elif resultado and not resultado.get("success"):
-                    print("❌ Errores encontrados:")
-                    for error in resultado.get("errors", []):
-                        print(f"  - {error}")
+                insertar_producto()
             case "2":
                 ver_productos()
             case "3":
