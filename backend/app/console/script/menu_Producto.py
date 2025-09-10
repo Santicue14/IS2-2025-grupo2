@@ -16,8 +16,8 @@ def insertar_producto():
         nombre = input("Ingrese el nombre del producto: ")
         sku = input("Ingrese el SKU del producto: ")
         descripcion = input("Ingrese la descripción del producto: ")
-        stock = int(input("Ingrese el stock del producto: "))
-        stock_minimo = int(input("Ingrese el stock mínimo del producto: "))
+        stock = input("Ingrese el stock del producto: ")
+        stock_minimo = input("Ingrese el stock mínimo del producto: ")
         
         # Crear el schema ProductoCreate directamente con los datos de entrada
         productoCreate = ProductoCreate(
@@ -43,6 +43,7 @@ def insertar_producto():
             else:
                 # Para otros tipos de errores, usar el mensaje directo
                 message = error['msg']
+            #Guardamos el mensaje del error en la lista
             errores.append(message)
         
         print("Errores de validación:")
@@ -51,19 +52,10 @@ def insertar_producto():
         #Fakear API
         print({"success": False, "errors": errores})
         return {"success": False, "errors": errores}
-        
-    except ValueError as ve:
-        error_message = f"El campo stock y stock mínimo deben ser números enteros"
-        print(error_message)
-        #Fakear API
-        print({"success": False, "errors": [error_message]})
-        return {"success": False, "errors": [error_message]}
     except Exception as e:
-        error_message = f"Error al insertar el producto"
-        print(e)
-        #Fakear API
-        print({"success": False, "errors": [error_message]})
-        return {"success": False, "errors": [error_message]}
+        #Manejar cualquier error no contemplado y fakear API
+        print({"success": False, "errors": [e]})
+        return {"success": False, "errors": [e]}
 def ver_productos():
     try:
         productos_orm = db.query(ProductoORM).all()

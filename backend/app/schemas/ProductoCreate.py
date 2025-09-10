@@ -41,21 +41,29 @@ class ProductoCreate(BaseModel):
         return v
 
     @field_validator('stock')
+    def validar_stock_str(cls, v):
+        if not v.isdigit(): #Valida que el stock sea un número
+            raise ValueError('El stock debe ser un número')
+        return int(v)
     def validar_stock(cls, v):
         if v < 0: #Valida que el stock no sea negativo
             raise ValueError('El stock no puede ser negativo')
         return v
-    def validar_stock_str(cls, v):
+    def validar_int(cls, v):
         if not v.isdigit(): #Valida que el stock sea un número
             raise ValueError('El stock debe ser un número')
         return int(v)
     
     @field_validator('stock_minimo')
+    def validar_stock_minimo_str(cls, v):
+        if not v.isdigit(): #Valida que el stock mínimo sea un número
+            raise ValueError('El stock mínimo debe ser un número')
+        return int(v)
     def validar_stock_minimo(cls, v):
         if v < 0: #Valida que el stock mínimo no sea negativo
             raise ValueError('El stock mínimo no puede ser negativo')
         return v
-    def validar_stock_minimo_str(cls, v):
+    def validar_stock_minimo_int(cls, v):
         if not v.isdigit(): #Valida que el stock mínimo sea un número
             raise ValueError('El stock mínimo debe ser un número')
         return int(v)

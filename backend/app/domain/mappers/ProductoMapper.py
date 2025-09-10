@@ -28,3 +28,5 @@ def producto_orm_a_producto(producto_orm: ProductoORM) -> Producto:
         )
     except Exception as e:
         raise ValueError(f"Error al convertir ProductoORM a Producto: {e}")
+
+#Mapper de ProductoCreate a ProductoORM
