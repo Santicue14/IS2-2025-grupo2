@@ -67,3 +67,11 @@ class ProductoCreate(BaseModel):
         if not v.isdigit(): #Valida que el stock mínimo sea un número
             raise ValueError('El stock mínimo debe ser un número')
         return int(v)
+
+class ProductoResponse(BaseModel):
+    id: int
+    nombre: str
+    sku: str
+    descripcion: str
+    stock: int
+    stock_minimo: int

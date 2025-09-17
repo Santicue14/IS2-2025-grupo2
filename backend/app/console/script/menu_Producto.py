@@ -5,8 +5,7 @@ from app.domain.mappers.ProductoMapper import producto_orm_a_producto, producto_
 
 from app.domain.models.Tipo import TipoMovimiento
 
-from app.schemas.ProductoCreate import ProductoCreate
-from app.schemas.ProductoResponse import ProductoResponse
+from app.schemas.producto import ProductoCreate, ProductoResponse
 from pydantic import ValidationError
 
 db = SessionLocal()
@@ -64,7 +63,7 @@ def ver_productos():
             return {"success": False, "errors": ["No hay productos"]}
         
         for producto_orm in productos_orm:
-            print("Hola")
+
             # Crear ProductoResponse directamente desde el ORM
             producto_response = ProductoResponse(
                 id=producto_orm.id,
