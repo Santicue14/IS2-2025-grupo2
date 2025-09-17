@@ -1,11 +1,12 @@
-from app.domain.models.Producto import Producto
 from app.db.models.ProductoORM import ProductoORM
 from app.db.session import SessionLocal
 from app.domain.mappers.ProductoMapper import producto_orm_a_producto, producto_a_producto_orm
-
+from app.domain.mappers.UsuarioMapper import usuario_a_usuario_orm
+from app.security.jwt_handler import hashear_password
 from app.domain.models.Tipo import TipoMovimiento
 
 from app.schemas.producto import ProductoCreate, ProductoResponse
+from app.schemas.usuario import UsuarioCreate
 from pydantic import ValidationError
 
 db = SessionLocal()
@@ -81,11 +82,53 @@ def listar_movimientos():
     #No implementada solo test para ENUM
     print(TipoMovimiento.SALIDA.value)
 
+def insertar_usuario():
+    try:
+        username = input("Ingrese el nombre del usuario: ")
+        email = input("Ingrese el email del usuario: ")
+        password = input("Ingrese la contraseña del usuario: ")
+
+        try:
+            password_hashed = hashear_password(password)
+        except Exception as e:
+            print(f"Error al hashear la contraseña: {e}")
+            return {"success": False, "errors": [e]}
+
+        usuarioCreate = UsuarioCreate(
+            username=username,
+            email=email,
+            hashed_password=password_hashed,
+            is_active=True
+        )
+        usuarioORM = usuario_a_usuario_orm(usuarioCreate)
+        db.add(usuarioORM)
+        db.commit()
+        print("Usuario insertado correctamente")
+
+    except ValidationError as ve:
+        errores = [] #Declaramos la lista antes del bucle
+        for error in ve.errors():
+            # Extraer solo el mensaje personalizado del error
+            if 'ctx' in error and 'error' in error['ctx']:
+                message = str(error['ctx']['error'])
+            else:
+                # Para otros tipos de errores, usar el mensaje directo
+                message = error['msg']
+            #Guardamos el mensaje del error en la lista
+            errores.append(message)
+        print("Errores de validación:")
+        for error in errores:
+            print(f"- {error}")
+        return {"success": False, "errors": errores}
+    except Exception as e:
+        print(f"Error al insertar el usuario: {e}")
+
 def menu_producto():
     while True:
         print("1. Insertar producto")
         print("2. Ver productos")
         print("3. Listar movimientos")
+        print("4. Insertar usuario")
         print("5. Salir")
         opcion = input("Ingrese una opción: ")
         match opcion:
@@ -95,6 +138,8 @@ def menu_producto():
                 ver_productos()
             case "3":
                 listar_movimientos()
+            case "4":
+                insertar_usuario()
             case "5":
                 break
 

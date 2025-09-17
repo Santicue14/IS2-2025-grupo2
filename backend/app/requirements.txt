@@ -3,4 +3,5 @@ python-dotenv
 fastapi
 sqlalchemy
 uvicorn
+pydantic
 python-jose
