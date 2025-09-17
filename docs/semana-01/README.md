@@ -81,7 +81,6 @@ venv/Scripts/activate.bat #Activo entorno (Windows)
 pip install -r app/requirements.txt # Instalar los requerimientos
 alembic revision --autogenerate -m "initial_migration" #Inicio migración inicial
 alembic upgrade head #Actualizo el archivo para la creación de tablas
-python -m app.create_db #Ejecutar comando para levantar bd
 
 
 python -m app.console.script.insertar_producto # Ejecutar script
