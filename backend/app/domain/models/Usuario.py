@@ -1,5 +1,9 @@
-from app.domain.models.Rol import Rol
-from app.domain.models.Movimiento import Movimiento
+from __future__ import annotations
+from typing import TYPE_CHECKING
+
+if TYPE_CHECKING:
+    from app.domain.models.Rol import Rol
+    from app.domain.models.Movimiento import Movimiento
 
 class Usuario:
     username: str

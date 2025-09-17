@@ -1,7 +1,6 @@
 from app.domain.models.Producto import Producto
 from app.db.models.ProductoORM import ProductoORM
-from app.schemas.ProductoCreate import ProductoCreate
-from pydantic import ValidationError
+from app.schemas.producto import ProductoCreate
 
 #Mapper de ProductoCreate a ProductoORM
 def producto_a_producto_orm(producto_create: ProductoCreate) -> ProductoORM:

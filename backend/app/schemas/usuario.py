@@ -1,76 +1,47 @@
 from pydantic import BaseModel, Field, field_validator
+import re
 
 class UsuarioCreate(BaseModel):
-    username: str = Field(..., description="Nombre del producto")
-    email: str = Field(..., description="Código SKU único")
-    hashed_password: str = Field(..., description="Contraseña hashed")
-    is_active: bool = Field(..., description="Activo")
+    username: str = Field(..., description="Nombre de usuario")
+    email: str = Field(..., description="Email del usuario")
+    hashed_password: str = Field(..., description="Contraseña hasheada")
+    is_active: bool = Field(..., description="Estado activo del usuario")
     
     # Validaciones de campos y mensajes de error
     @field_validator('username')
-    def validar_nombre(cls, v):
+    def validar_username(cls, v):
         if not v.strip(): #Valida que no esté vacío
             raise ValueError('El username no puede estar vacío')
         if len(v.strip()) < 2: #Valida que tenga al menos 2 caracteres
             raise ValueError('El username debe tener al menos 2 caracteres')
-        if len(v.strip()) > 100: #Valida que no exceda 100 caracteres
-            raise ValueError('El username no puede exceder 100 caracteres')
+        if len(v.strip()) > 50: #Valida que no exceda 50 caracteres
+            raise ValueError('El username no puede exceder 50 caracteres')
         return v.strip()
-    
-    
     
     @field_validator('email')
-    def validar_sku(cls, v):
+    def validar_email(cls, v):
         if not v.strip(): #Valida que no esté vacío
             raise ValueError("El email no puede estar vacío")
-        if len(v.strip()) < 3: #Valida que tenga al menos 3 caracteres
-            raise ValueError('El email debe tener al menos 3 caracteres')
-        if len(v.strip()) > 20: #Valida que no exceda 20 caracteres
-            raise ValueError('El email no puede exceder 20 caracteres')
+        if len(v.strip()) < 5: #Valida que tenga al menos 5 caracteres
+            raise ValueError('El email debe tener al menos 5 caracteres')
+        if len(v.strip()) > 100: #Valida que no exceda 100 caracteres
+            raise ValueError('El email no puede exceder 100 caracteres')
+        # Validación básica de formato de email
+        email_pattern = r'^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$'
+        if not re.match(email_pattern, v.strip()):
+            raise ValueError('El email debe tener un formato válido')
         return v.strip()
     
-    @field_validator('descripcion')
-    def validar_descripcion(cls, v):
-        if not v.strip(): #Valida que la descripción no esté vacía
-            raise ValueError('La descripción no puede estar vacía')
-        if len(v.strip()) < 10: #Valida que tenga al menos 10 caracteres
-            raise ValueError('La descripción debe tener al menos 10 caracteres')
-        if len(v.strip()) > 500: #Valida que no exceda 500 caracteres
-            raise ValueError('La descripción no puede exceder 500 caracteres')
-        return v
+    @field_validator('hashed_password')
+    def validar_hashed_password(cls, v):
+        if not v.strip(): #Valida que no esté vacío
+            raise ValueError('La contraseña hasheada no puede estar vacía')
+        if len(v.strip()) < 10: #Valida que tenga al menos 10 caracteres (hash mínimo)
+            raise ValueError('La contraseña hasheada debe tener al menos 10 caracteres')
+        return v.strip()
 
-    @field_validator('stock')
-    def validar_stock_str(cls, v):
-        if not v.isdigit(): #Valida que el stock sea un número
-            raise ValueError('El stock debe ser un número')
-        return int(v)
-    def validar_stock(cls, v):
-        if v < 0: #Valida que el stock no sea negativo
-            raise ValueError('El stock no puede ser negativo')
-        return v
-    def validar_int(cls, v):
-        if not v.isdigit(): #Valida que el stock sea un número
-            raise ValueError('El stock debe ser un número')
-        return int(v)
-    
-    @field_validator('stock_minimo')
-    def validar_stock_minimo_str(cls, v):
-        if not v.isdigit(): #Valida que el stock mínimo sea un número
-            raise ValueError('El stock mínimo debe ser un número')
-        return int(v)
-    def validar_stock_minimo(cls, v):
-        if v < 0: #Valida que el stock mínimo no sea negativo
-            raise ValueError('El stock mínimo no puede ser negativo')
-        return v
-    def validar_stock_minimo_int(cls, v):
-        if not v.isdigit(): #Valida que el stock mínimo sea un número
-            raise ValueError('El stock mínimo debe ser un número')
-        return int(v)
-
-class ProductoResponse(BaseModel):
+class UsuarioResponse(BaseModel):
     id: int
-    nombre: str
-    sku: str
-    descripcion: str
-    stock: int
-    stock_minimo: int
+    username: str
+    email: str
+    is_active: bool
