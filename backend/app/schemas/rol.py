@@ -1,9 +1,11 @@
-from pydantic import BaseModel, Field, field_validator 
+from pydantic import BaseModel, Field, field_validator
+
 
 class RolCreate(BaseModel):
-    nombre: str= Field(..., descipcion= "nombre del rol")
+    nombre: str = Field(..., description="Nombre del rol")
     
-    #validaciones
+
+    #Validaciones
     @field_validator('nombre')
     def validar_nombre(cls, v):
         if not v.strip(): #Valida que no esté vacío
